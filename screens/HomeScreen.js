@@ -43,7 +43,7 @@ export default function HomeScreen() {
             <MonoText>screens/HomeScreen.js</MonoText>
           </View>
 
-          <Text style={styles.getStartedText}>Yes No</Text>
+          <Text style={styles.getStartedText}>Yes No Test</Text>
         </View>
 
         <View style={styles.helpContainer}>
