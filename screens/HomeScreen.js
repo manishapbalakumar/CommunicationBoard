@@ -35,7 +35,7 @@ export default function HomeScreen() {
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
-          <Text style={styles.getStartedText}>Get started by opening</Text>
+          <Text style={styles.getStartedText}>Get started</Text>
 
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
@@ -43,7 +43,7 @@ export default function HomeScreen() {
             <MonoText>screens/HomeScreen.js</MonoText>
           </View>
 
-          <Text style={styles.getStartedText}>Yes No Board</Text>
+          <Text style={styles.getStartedText}>Yes No</Text>
         </View>
 
         <View style={styles.helpContainer}>
