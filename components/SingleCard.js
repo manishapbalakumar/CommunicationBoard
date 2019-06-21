@@ -1,70 +1,100 @@
+/* eslint-disable no-use-before-define */
 import React from 'react';
-import { Image, Text, View, StyleSheet, Platform } from 'react-native';
-import { jsxClosingFragment, jsxFragment } from '@babel/types';
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  Platform,
+  TouchableHighlight,
+} from 'react-native';
 
-const imagesArr = [
-  1,
-  '../public/images/thumbsup.png',
-  '../public/images/thumbsdown.png',
-  '../public/images/confusedwoman.png',
-  '../public/images/water.png',
-  '../public/images/food.png',
-];
+export class SingleCard extends React.Component {
+  render() {
+    return (
+      <View style={styles.welcomeContainer}>
+        <Text style={styles.getStartedText}>{this.props.singleCard.name}</Text>
+        {this.props.singleCard.id === 1 && (
+          <React.Fragment>
+            <View style={styles.imageContainer}>
+              <TouchableHighlight
+                underlayColor="blue"
+                onPress={() => console.log()}
+              >
+                <Image
+                  key={1}
+                  source={require('../public/images/thumbsup.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
 
-export const SingleCard = props => {
-  return (
-    <View style={styles.welcomeContainer}>
-      <Text style={styles.getStartedText}>{props.singleCard.name}</Text>
-      {props.singleCard.id === 1 && (
-        <React.Fragment>
-          <View style={styles.imageContainer}>
-            <Image
-              key={1}
-              source={require('../public/images/thumbsup.png')}
-              style={styles.welcomeImage}
-            />
+              <TouchableHighlight
+                underlayColor="blue"
+                onPress={() => console.log('pressed')}
+              >
+                <Image
+                  key={2}
+                  source={require('../public/images/thumbsdown.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
 
-            <Image
-              key={2}
-              source={require('../public/images/thumbsdown.png')}
-              style={styles.welcomeImage}
-            />
-
-            <Image
-              key={3}
-              source={require('../public/images/confusedwoman.png')}
-              style={styles.welcomeImage}
-            />
-          </View>
-        </React.Fragment>
-      )}
-      {props.singleCard.id === 2 && (
-        <Image
-          key={4}
-          source={require('../public/images/water.png')}
-          style={styles.welcomeImage}
-        />
-      )}
-      {props.singleCard.id === 3 && (
-        <React.Fragment>
-          <View style={styles.imageContainer}>
+              <TouchableHighlight
+                underlayColor="blue"
+                onPress={() => console.log('pressed')}
+              >
+                <Image
+                  key={3}
+                  source={require('../public/images/confusedwoman.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
+            </View>
+          </React.Fragment>
+        )}
+        {this.props.singleCard.id === 2 && (
+          <TouchableHighlight
+            underlayColor="blue"
+            onPress={() => console.log('pressed')}
+          >
             <Image
               key={4}
               source={require('../public/images/water.png')}
               style={styles.welcomeImage}
             />
+          </TouchableHighlight>
+        )}
+        {this.props.singleCard.id === 3 && (
+          <React.Fragment>
+            <View style={styles.imageContainer}>
+              <TouchableHighlight
+                underlayColor="blue"
+                onPress={() => console.log('pressed')}
+              >
+                <Image
+                  key={4}
+                  source={require('../public/images/water.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
 
-            <Image
-              key={5}
-              source={require('../public/images/food.png')}
-              style={styles.welcomeImage}
-            />
-          </View>
-        </React.Fragment>
-      )}
-    </View>
-  );
-};
+              <TouchableHighlight
+                underlayColor="blue"
+                onPress={() => console.log('pressed')}
+              >
+                <Image
+                  key={5}
+                  source={require('../public/images/food.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
+            </View>
+          </React.Fragment>
+        )}
+      </View>
+    );
+  }
+}
 
 export default SingleCard;
 
