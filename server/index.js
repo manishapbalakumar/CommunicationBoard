@@ -48,4 +48,6 @@ async function syncDb() {
 
 syncDb();
 
-app.listen(PORT, () => console.log(`listening on port http://localhost:PORT`));
+app.listen(PORT, () =>
+  console.log(`listening on port http://localhost:${PORT}`)
+);
