@@ -17,7 +17,7 @@ export default class HomeScreen extends React.Component {
     try {
       console.log('mount');
       const { data: cards } = await axios.get(
-        'https://551e3cd7.ngrok.io/api/cards'
+        'https://5ce3dcee.ngrok.io/api/cards'
       );
       this.setState({
         cards,

@@ -63,7 +63,7 @@ async function seed() {
   await waterCard.addImage(water);
 
   const foodWater = await Card.create({
-    name: 'Food and Water',
+    name: 'Water and Food',
   });
 
   await foodWater.addImages([food, water]);

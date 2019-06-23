@@ -18,7 +18,8 @@ export class SingleCard extends React.Component {
           <React.Fragment>
             <View style={styles.imageContainer}>
               <TouchableHighlight
-                underlayColor="blue"
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
                 onPress={() => console.log()}
               >
                 <Image
@@ -29,8 +30,9 @@ export class SingleCard extends React.Component {
               </TouchableHighlight>
 
               <TouchableHighlight
-                underlayColor="blue"
-                onPress={() => console.log('pressed')}
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
+                onPress={() => console.log()}
               >
                 <Image
                   key={2}
@@ -40,8 +42,9 @@ export class SingleCard extends React.Component {
               </TouchableHighlight>
 
               <TouchableHighlight
-                underlayColor="blue"
-                onPress={() => console.log('pressed')}
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
+                onPress={() => console.log()}
               >
                 <Image
                   key={3}
@@ -53,23 +56,27 @@ export class SingleCard extends React.Component {
           </React.Fragment>
         )}
         {this.props.singleCard.id === 2 && (
-          <TouchableHighlight
-            underlayColor="blue"
-            onPress={() => console.log('pressed')}
-          >
-            <Image
-              key={4}
-              source={require('../public/images/water.png')}
-              style={styles.welcomeImage}
-            />
-          </TouchableHighlight>
+          <View style={styles.imageContainer}>
+            <TouchableHighlight
+              underlayColor="#2e78b7"
+              style={styles.touchHighlight}
+              onPress={() => console.log()}
+            >
+              <Image
+                key={4}
+                source={require('../public/images/water.png')}
+                style={styles.welcomeImage}
+              />
+            </TouchableHighlight>
+          </View>
         )}
         {this.props.singleCard.id === 3 && (
           <React.Fragment>
             <View style={styles.imageContainer}>
               <TouchableHighlight
-                underlayColor="blue"
-                onPress={() => console.log('pressed')}
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
+                onPress={() => console.log()}
               >
                 <Image
                   key={4}
@@ -79,8 +86,9 @@ export class SingleCard extends React.Component {
               </TouchableHighlight>
 
               <TouchableHighlight
-                underlayColor="blue"
-                onPress={() => console.log('pressed')}
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
+                onPress={() => console.log()}
               >
                 <Image
                   key={5}
@@ -117,13 +125,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 20,
     justifyContent: 'center',
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 20,
     marginHorizontal: 20,
     borderWidth: 1,
@@ -133,10 +141,15 @@ const styles = StyleSheet.create({
   },
   welcomeImage: {
     width: 150,
-    height: 120,
+    height: 150,
     resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+    margin: 3,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 4,
+  },
+  touchHighlight: {
+    borderRadius: 4,
   },
   getStartedContainer: {
     alignItems: 'center',
