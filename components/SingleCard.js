@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     margin: 3,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'grey',
     borderRadius: 4,
   },
   touchHighlight: {

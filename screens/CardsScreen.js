@@ -1,9 +1,19 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-use-before-define */
 import React from 'react';
-import { ScrollView, View, StyleSheet, Platform } from 'react-native';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Text,
+  TouchableHighlight,
+  Image,
+} from 'react-native';
+import DraggableFlatList from 'react-native-draggable-dynamic-flatlist';
 import axios from 'axios';
-import SingleCard from '../components/SingleCard';
+// import SingleCard from '../components/SingleCard';
 
 export default class HomeScreen extends React.Component {
   constructor() {
@@ -11,36 +21,139 @@ export default class HomeScreen extends React.Component {
     this.state = {
       cards: [],
     };
+    this.renderItem = this.renderItem.bind(this);
   }
 
   async componentDidMount() {
     try {
       console.log('mount');
       const { data: cards } = await axios.get(
-        'https://5ce3dcee.ngrok.io/api/cards'
+        'https://b8dda0fc.ngrok.io/api/cards'
       );
       this.setState({
         cards,
       });
-      // console.log(data);
       console.log('the component mounted');
     } catch (error) {
-      console.log('ERROR: ', error);
+      console.log('ERR: ', error);
     }
   }
+
+  renderItem = ({ item, index, move, moveEnd, isActive }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onLongPress={move}
+        onPressOut={moveEnd}
+      >
+        <Text>Cards</Text>
+
+        {this.state.cards.map(card => (
+          <View style={styles.welcomeContainer} key={card.id}>
+            <Text style={styles.getStartedText}>{card.name}</Text>
+            {card.id === 1 && (
+              <React.Fragment>
+                <View style={styles.imageContainer}>
+                  <TouchableHighlight
+                    underlayColor="#2e78b7"
+                    style={styles.touchHighlight}
+                    onPress={() => console.log()}
+                  >
+                    <Image
+                      key={1}
+                      source={require('../public/images/thumbsup.png')}
+                      style={styles.welcomeImage}
+                    />
+                  </TouchableHighlight>
+
+                  <TouchableHighlight
+                    underlayColor="#2e78b7"
+                    style={styles.touchHighlight}
+                    onPress={() => console.log()}
+                  >
+                    <Image
+                      key={2}
+                      source={require('../public/images/thumbsdown.png')}
+                      style={styles.welcomeImage}
+                    />
+                  </TouchableHighlight>
+
+                  <TouchableHighlight
+                    underlayColor="#2e78b7"
+                    style={styles.touchHighlight}
+                    onPress={() => console.log()}
+                  >
+                    <Image
+                      key={3}
+                      source={require('../public/images/confusedwoman.png')}
+                      style={styles.welcomeImage}
+                    />
+                  </TouchableHighlight>
+                </View>
+              </React.Fragment>
+            )}
+            {card.id === 2 && (
+              <View style={styles.imageContainer}>
+                <TouchableHighlight
+                  underlayColor="#2e78b7"
+                  style={styles.touchHighlight}
+                  onPress={() => console.log()}
+                >
+                  <Image
+                    key={4}
+                    source={require('../public/images/water.png')}
+                    style={styles.welcomeImage}
+                  />
+                </TouchableHighlight>
+              </View>
+            )}
+            {card.id === 3 && (
+              <React.Fragment>
+                <View style={styles.imageContainer}>
+                  <TouchableHighlight
+                    underlayColor="#2e78b7"
+                    style={styles.touchHighlight}
+                    onPress={() => console.log()}
+                  >
+                    <Image
+                      key={4}
+                      source={require('../public/images/water.png')}
+                      style={styles.welcomeImage}
+                    />
+                  </TouchableHighlight>
+
+                  <TouchableHighlight
+                    underlayColor="#2e78b7"
+                    style={styles.touchHighlight}
+                    onPress={() => console.log()}
+                  >
+                    <Image
+                      key={5}
+                      source={require('../public/images/food.png')}
+                      style={styles.welcomeImage}
+                    />
+                  </TouchableHighlight>
+                </View>
+              </React.Fragment>
+            )}
+          </View>
+        ))}
+      </TouchableOpacity>
+    );
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          {this.state.cards.length > 0 &&
-            this.state.cards.map(card => (
-              <SingleCard singleCard={card} key={card.id} />
-            ))}
-        </ScrollView>
+        <DraggableFlatList
+          data={this.state.cards}
+          renderItem={this.renderItem}
+          keyExtractor={(card, index) => `draggable-item-${card.id}`}
+          onMoveEnd={({ cards }) => this.setState({ cards })}
+        />
       </View>
     );
   }
@@ -68,17 +181,35 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 30,
   },
+  imageContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 20,
+    marginBottom: 20,
+    justifyContent: 'center',
+  },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 20,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.4)',
+    borderRadius: 4,
+    justifyContent: 'center',
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+    margin: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.4)',
+    borderRadius: 4,
+  },
+  touchHighlight: {
+    borderRadius: 4,
   },
   getStartedContainer: {
     alignItems: 'center',
