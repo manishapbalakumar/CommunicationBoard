@@ -18,22 +18,20 @@ import axios from 'axios';
 export default class HomeScreen extends React.Component {
   constructor() {
     super();
-    this.state = {
-      cards: [],
-    };
     this.renderItem = this.renderItem.bind(this);
   }
 
   async componentDidMount() {
     try {
-      console.log('mount');
       const { data: cards } = await axios.get(
-        'https://b8dda0fc.ngrok.io/api/cards'
+        'https://1eb40f6f.ngrok.io/api/cards'
       );
-      this.setState({
-        cards,
+      await this.setState({
+        data: cards.map((card, index) => ({
+          key: `item-${index}`,
+          cardInfo: card,
+        })),
       });
-      console.log('the component mounted');
     } catch (error) {
       console.log('ERR: ', error);
     }
@@ -49,53 +47,10 @@ export default class HomeScreen extends React.Component {
         onLongPress={move}
         onPressOut={moveEnd}
       >
-        <Text>Cards</Text>
-
-        {this.state.cards.map(card => (
-          <View style={styles.welcomeContainer} key={card.id}>
-            <Text style={styles.getStartedText}>{card.name}</Text>
-            {card.id === 1 && (
-              <React.Fragment>
-                <View style={styles.imageContainer}>
-                  <TouchableHighlight
-                    underlayColor="#2e78b7"
-                    style={styles.touchHighlight}
-                    onPress={() => console.log()}
-                  >
-                    <Image
-                      key={1}
-                      source={require('../public/images/thumbsup.png')}
-                      style={styles.welcomeImage}
-                    />
-                  </TouchableHighlight>
-
-                  <TouchableHighlight
-                    underlayColor="#2e78b7"
-                    style={styles.touchHighlight}
-                    onPress={() => console.log()}
-                  >
-                    <Image
-                      key={2}
-                      source={require('../public/images/thumbsdown.png')}
-                      style={styles.welcomeImage}
-                    />
-                  </TouchableHighlight>
-
-                  <TouchableHighlight
-                    underlayColor="#2e78b7"
-                    style={styles.touchHighlight}
-                    onPress={() => console.log()}
-                  >
-                    <Image
-                      key={3}
-                      source={require('../public/images/confusedwoman.png')}
-                      style={styles.welcomeImage}
-                    />
-                  </TouchableHighlight>
-                </View>
-              </React.Fragment>
-            )}
-            {card.id === 2 && (
+        <View style={styles.welcomeContainer}>
+          <Text style={styles.getStartedText}>{item.cardInfo.name}</Text>
+          {item.cardInfo.id === 1 && (
+            <React.Fragment>
               <View style={styles.imageContainer}>
                 <TouchableHighlight
                   underlayColor="#2e78b7"
@@ -103,59 +58,98 @@ export default class HomeScreen extends React.Component {
                   onPress={() => console.log()}
                 >
                   <Image
-                    key={4}
-                    source={require('../public/images/water.png')}
+                    source={require('../public/images/thumbsup.png')}
+                    style={styles.welcomeImage}
+                  />
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  underlayColor="#2e78b7"
+                  style={styles.touchHighlight}
+                  onPress={() => console.log()}
+                >
+                  <Image
+                    source={require('../public/images/thumbsdown.png')}
+                    style={styles.welcomeImage}
+                  />
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  underlayColor="#2e78b7"
+                  style={styles.touchHighlight}
+                  onPress={() => console.log()}
+                >
+                  <Image
+                    source={require('../public/images/confusedwoman.png')}
                     style={styles.welcomeImage}
                   />
                 </TouchableHighlight>
               </View>
-            )}
-            {card.id === 3 && (
-              <React.Fragment>
-                <View style={styles.imageContainer}>
-                  <TouchableHighlight
-                    underlayColor="#2e78b7"
-                    style={styles.touchHighlight}
-                    onPress={() => console.log()}
-                  >
-                    <Image
-                      key={4}
-                      source={require('../public/images/water.png')}
-                      style={styles.welcomeImage}
-                    />
-                  </TouchableHighlight>
+            </React.Fragment>
+          )}
+          {item.cardInfo.id === 2 && (
+            <View style={styles.imageContainer}>
+              <TouchableHighlight
+                underlayColor="#2e78b7"
+                style={styles.touchHighlight}
+                onPress={() => console.log()}
+              >
+                <Image
+                  source={require('../public/images/water.png')}
+                  style={styles.welcomeImage}
+                />
+              </TouchableHighlight>
+            </View>
+          )}
+          {item.cardInfo.id === 3 && (
+            <React.Fragment>
+              <View style={styles.imageContainer}>
+                <TouchableHighlight
+                  underlayColor="#2e78b7"
+                  style={styles.touchHighlight}
+                  onPress={() => console.log()}
+                >
+                  <Image
+                    source={require('../public/images/water.png')}
+                    style={styles.welcomeImage}
+                  />
+                </TouchableHighlight>
 
-                  <TouchableHighlight
-                    underlayColor="#2e78b7"
-                    style={styles.touchHighlight}
-                    onPress={() => console.log()}
-                  >
-                    <Image
-                      key={5}
-                      source={require('../public/images/food.png')}
-                      style={styles.welcomeImage}
-                    />
-                  </TouchableHighlight>
-                </View>
-              </React.Fragment>
-            )}
-          </View>
-        ))}
+                <TouchableHighlight
+                  underlayColor="#2e78b7"
+                  style={styles.touchHighlight}
+                  onPress={() => console.log()}
+                >
+                  <Image
+                    source={require('../public/images/food.png')}
+                    style={styles.welcomeImage}
+                  />
+                </TouchableHighlight>
+              </View>
+            </React.Fragment>
+          )}
+        </View>
       </TouchableOpacity>
     );
   };
 
   render() {
-    return (
-      <View style={styles.container}>
-        <DraggableFlatList
-          data={this.state.cards}
-          renderItem={this.renderItem}
-          keyExtractor={(card, index) => `draggable-item-${card.id}`}
-          onMoveEnd={({ cards }) => this.setState({ cards })}
-        />
-      </View>
-    );
+    // console.log('state:    ', this.state);
+
+    if (this.state) {
+      return (
+        <View style={styles.container}>
+          <DraggableFlatList
+            data={this.state.data}
+            renderItem={this.renderItem}
+            keyExtractor={(item, index) => `draggable-item-${item.key}`}
+            onMoveEnd={({ data }) => this.setState({ data })}
+          />
+        </View>
+      );
+    } else {
+      return <Text>Error Loading Cards</Text>;
+    }
   }
 
   // );
@@ -163,7 +157,7 @@ export default class HomeScreen extends React.Component {
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  title: 'Cards',
 };
 
 const styles = StyleSheet.create({
